@@ -1,4 +1,5 @@
 import Header from "@/components/shared/header";
+import Activity from "@/components/widgets/activity";
 import Distance from "@/components/widgets/distance";
 import Steps from "@/components/widgets/steps";
 import { createLazyFileRoute } from "@tanstack/react-router";
@@ -12,6 +13,7 @@ function Index() {
     <>
       <Header />
       <div className="container grid grid-cols-3 gap-5 py-6">
+        <Activity />
         <Steps />
         <Distance />
       </div>
