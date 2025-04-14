@@ -18,8 +18,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { RiNotification2Line, RiSearch2Line } from "@remixicon/react";
+import useDateRangeStore from "@/store/date-range-store";
 
-export default async function Header() {
+export default function Header() {
+  const dateRange = useDateRangeStore((state) => state.dateRange);
+  const setDateRange = useDateRangeStore((state) => state.setDateRange);
   const options = [
     {
       label: "Today",
@@ -59,7 +62,11 @@ export default async function Header() {
         <Button variant="neutral" mode="ghost">
           <ButtonIcon as={RiNotification2Line} />
         </Button>
-        <Select defaultValue="today">
+        <Select 
+          defaultValue="today"
+          onValueChange={setDateRange}
+          value={dateRange}
+        >
           <SelectTrigger className="w-auto min-w-32">
             <SelectValue placeholder="Select a date range" />
           </SelectTrigger>

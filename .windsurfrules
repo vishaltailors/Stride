@@ -1,3 +1,4 @@
 - Opt for bun instead of npm when necessary.
 - Utilize @remixicon/react for your icons.
+- Use date-fns for date and time operations.
 - Adhere to the project's design system. If you're unsure about anything or creating new components, refer to tailwind.config.js and global.css to get a grasp on colors, typography, spacing, and more.

@@ -13,6 +13,12 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import {
+  calculateTotalSteps,
+  getStepsDataByRange,
+} from "@/components/widgets/steps.data";
+import useDateRangeStore from "@/store/date-range-store";
+import { format, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear } from "date-fns";
 import { RiFootprintLine } from "@remixicon/react";
 import {
   Bar,
@@ -23,45 +29,6 @@ import {
   YAxis,
 } from "recharts";
 
-// Generate mock data for today's steps and distance (hourly)
-// Exported to be reused by the distance component
-export const generateTodayActivityData = () => {
-  const data = [];
-  // Start with fewer steps in early morning, peak during day, then decrease
-  const stepPatterns = [
-    100, 50, 20, 10, 30, 150, 500, 1200, 800, 950, 1100, 1300, 1500, 1400, 1200,
-    1300, 1000, 1100, 900, 700, 500, 300, 200, 100,
-  ];
-
-  // Distance in kilometers, roughly correlated with steps but not exactly proportional
-  const distancePatterns = [
-    0.05, 0.02, 0.01, 0.01, 0.02, 0.08, 0.25, 0.45, 0.3, 0.35, 0.4, 0.45, 0.5,
-    0.48, 0.42, 0.45, 0.38, 0.4, 0.32, 0.25, 0.18, 0.12, 0.08, 0.05,
-  ];
-
-  for (let hour = 0; hour < 24; hour++) {
-    data.push({
-      hour: hour,
-      steps: stepPatterns[hour],
-      distance: distancePatterns[hour],
-      displayHour:
-        hour === 0
-          ? "12 AM"
-          : hour === 12
-            ? "12 PM"
-            : hour < 12
-              ? `${hour} AM`
-              : `${hour - 12} PM`,
-    });
-  }
-  return data;
-};
-
-const chartData = generateTodayActivityData();
-
-// Calculate total steps
-const totalSteps = chartData.reduce((sum, entry) => sum + entry.steps, 0);
-
 const stepsChartConfig = {
   steps: {
     label: "Steps",
@@ -70,14 +37,53 @@ const stepsChartConfig = {
 };
 
 export default function Steps() {
-  // Get current date
+  const dateRange = useDateRangeStore((state) => state.dateRange);
+  const chartData = getStepsDataByRange(dateRange);
+  const totalSteps = calculateTotalSteps(chartData);
+
   const today = new Date();
-  const formattedDate = today.toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
+  
+  const getFormattedDateRange = () => {
+    switch (dateRange) {
+      case "today":
+        return format(today, "EEEE, MMMM d, yyyy");
+      case "this-week": {
+        const weekStart = startOfWeek(today, { weekStartsOn: 1 });
+        const weekEnd = endOfWeek(today, { weekStartsOn: 1 });
+        return `${format(weekStart, "MMM d")} - ${format(weekEnd, "MMM d, yyyy")}`;
+      }
+      case "this-month": {
+        const monthStart = startOfMonth(today);
+        const monthEnd = endOfMonth(today);
+        return `${format(monthStart, "MMMM d")} - ${format(monthEnd, "d, yyyy")}`;
+      }
+      case "this-year": {
+        const yearStart = startOfYear(today);
+        const yearEnd = endOfYear(today);
+        return `${format(yearStart, "MMM d")} - ${format(yearEnd, "MMM d, yyyy")}`;
+      }
+      default:
+        return format(today, "EEEE, MMMM d, yyyy");
+    }
+  };
+  
+  const formattedDate = getFormattedDateRange();
+
+  // Determine which data key to use for X-axis based on date range
+  const getXAxisDataKey = () => {
+    switch (dateRange) {
+      case "today":
+        return "displayHour";
+      case "this-week":
+        return "day";
+      case "this-month":
+        return "week";
+      case "this-year":
+        return "month";
+      default:
+        return "displayHour";
+    }
+  };
 
   return (
     <Card>
@@ -97,7 +103,7 @@ export default function Steps() {
               <BarChart data={chartData} barSize={12}>
                 <CartesianGrid vertical={false} strokeDasharray="3 3" />
                 <XAxis
-                  dataKey="displayHour"
+                  dataKey={getXAxisDataKey()}
                   tickLine={false}
                   tickMargin={10}
                   axisLine={false}

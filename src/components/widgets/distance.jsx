@@ -13,7 +13,12 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { generateTodayActivityData } from "@/components/widgets/steps";
+import {
+  calculateTotalDistance,
+  getDistanceDataByRange,
+} from "@/components/widgets/distance.data";
+import useDateRangeStore from "@/store/date-range-store";
+import { format, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear } from "date-fns";
 import { RiRoadMapLine } from "@remixicon/react";
 import {
   Bar,
@@ -25,18 +30,54 @@ import {
 } from "recharts";
 
 export default function Distance() {
-  const chartData = generateTodayActivityData();
-  const totalDistance = chartData
-    .reduce((sum, entry) => sum + entry.distance, 0)
-    .toFixed(2);
+  const dateRange = useDateRangeStore((state) => state.dateRange);
+  const chartData = getDistanceDataByRange(dateRange);
+  const totalDistance = calculateTotalDistance(chartData);
+
   // Get current date
   const today = new Date();
-  const formattedDate = today.toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
+  
+  const getFormattedDateRange = () => {
+    switch (dateRange) {
+      case "today":
+        return format(today, "EEEE, MMMM d, yyyy");
+      case "this-week": {
+        const weekStart = startOfWeek(today, { weekStartsOn: 1 });
+        const weekEnd = endOfWeek(today, { weekStartsOn: 1 });
+        return `${format(weekStart, "MMM d")} - ${format(weekEnd, "MMM d, yyyy")}`;
+      }
+      case "this-month": {
+        const monthStart = startOfMonth(today);
+        const monthEnd = endOfMonth(today);
+        return `${format(monthStart, "MMMM d")} - ${format(monthEnd, "d, yyyy")}`;
+      }
+      case "this-year": {
+        const yearStart = startOfYear(today);
+        const yearEnd = endOfYear(today);
+        return `${format(yearStart, "MMM d")} - ${format(yearEnd, "MMM d, yyyy")}`;
+      }
+      default:
+        return format(today, "EEEE, MMMM d, yyyy");
+    }
+  };
+  
+  const formattedDate = getFormattedDateRange();
+
+  // Determine which data key to use for X-axis based on date range
+  const getXAxisDataKey = () => {
+    switch (dateRange) {
+      case "today":
+        return "displayHour";
+      case "this-week":
+        return "day";
+      case "this-month":
+        return "week";
+      case "this-year":
+        return "month";
+      default:
+        return "displayHour";
+    }
+  };
 
   const distanceChartConfig = {
     distance: {
@@ -60,7 +101,7 @@ export default function Distance() {
               <BarChart data={chartData} barSize={12}>
                 <CartesianGrid vertical={false} strokeDasharray="3 3" />
                 <XAxis
-                  dataKey="displayHour"
+                  dataKey={getXAxisDataKey()}
                   tickLine={false}
                   tickMargin={10}
                   axisLine={false}
