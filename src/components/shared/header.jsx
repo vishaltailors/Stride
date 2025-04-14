@@ -17,10 +17,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { RiNotification2Line, RiSearch2Line } from "@remixicon/react";
 import useDateRangeStore from "@/store/date-range-store";
+import {
+  RiBringForward,
+  RiCheckLine,
+  RiNotification2Line,
+  RiSearch2Line,
+} from "@remixicon/react";
 
-export default function Header() {
+export default function Header({ isDraggable, setIsDraggable }) {
   const dateRange = useDateRangeStore((state) => state.dateRange);
   const setDateRange = useDateRangeStore((state) => state.setDateRange);
   const options = [
@@ -62,7 +67,7 @@ export default function Header() {
         <Button variant="neutral" mode="ghost">
           <ButtonIcon as={RiNotification2Line} />
         </Button>
-        <Select 
+        <Select
           defaultValue="today"
           onValueChange={setDateRange}
           value={dateRange}
@@ -78,6 +83,14 @@ export default function Header() {
             ))}
           </SelectContent>
         </Select>
+        <Button
+          variant="neutral"
+          mode="stroke"
+          onClick={() => setIsDraggable(!isDraggable)}
+        >
+          <ButtonIcon as={isDraggable ? RiCheckLine : RiBringForward} />
+          {isDraggable ? "Confirm Current Positions" : "Organize Widgets"}
+        </Button>
       </PageQuickActions>
     </PageHeader>
   );

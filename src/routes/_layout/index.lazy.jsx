@@ -5,13 +5,14 @@ import HeartRate from "@/components/widgets/heart-rate";
 import Steps from "@/components/widgets/steps";
 import Workouts from "@/components/widgets/workouts";
 import { createLazyFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
-const layouts = {
+const defaultLayouts = {
   lg: [
     { i: "activity", x: 0, y: 0, w: 1, h: 1 },
     { i: "steps", x: 1, y: 0, w: 1, h: 1 },
@@ -40,9 +41,65 @@ export const Route = createLazyFileRoute("/_layout/")({
 });
 
 function Index() {
+  const [isDraggable, setIsDraggable] = useState(false);
+  const [layouts, setLayouts] = useState(defaultLayouts);
+  const [currentLayout, setCurrentLayout] = useState(null);
+
+  // Load saved layouts from localStorage on component mount
+  useEffect(() => {
+    try {
+      const savedLayouts = localStorage.getItem("stride-widget-layouts");
+      if (savedLayouts) {
+        setLayouts(JSON.parse(savedLayouts));
+      }
+    } catch (error) {
+      console.error("Error loading saved layouts:", error);
+    }
+  }, []);
+
+  // Save layouts to localStorage when user confirms positions
+  useEffect(() => {
+    if (!isDraggable && currentLayout) {
+      try {
+        const updatedLayouts = {
+          ...layouts,
+          [currentLayout.breakpoint]: currentLayout.layout,
+        };
+
+        localStorage.setItem(
+          "stride-widget-layouts",
+          JSON.stringify(updatedLayouts),
+        );
+
+        setLayouts(updatedLayouts);
+        setCurrentLayout(null);
+      } catch (error) {
+        console.error("Error saving layouts:", error);
+      }
+    }
+  }, [isDraggable, currentLayout, layouts]);
+
+  const handleLayoutChange = (layout, layouts) => {
+    if (isDraggable) {
+      // Get current breakpoint
+      const breakpoint =
+        Object.keys(layouts).find((key) => layouts[key] === layout) ||
+        (window.innerWidth >= 1200
+          ? "lg"
+          : window.innerWidth >= 996
+            ? "md"
+            : "sm");
+
+      setCurrentLayout({
+        breakpoint,
+        layout,
+      });
+    }
+  };
+
   return (
     <>
-      <Header />
+      <Header isDraggable={isDraggable} setIsDraggable={setIsDraggable} />
       <div className="container py-6">
         <ResponsiveGridLayout
           className="layout"
@@ -53,8 +110,9 @@ function Index() {
           width={1200}
           margin={[20, 20]}
           containerPadding={[0, 0]}
-          isDraggable={true}
+          isDraggable={isDraggable}
           isResizable={false}
+          onLayoutChange={handleLayoutChange}
         >
           <div key="activity">
             <Activity />

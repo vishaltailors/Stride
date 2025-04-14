@@ -4,21 +4,15 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { ChartContainer } from "@/components/ui/chart";
 import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
-import { 
-  getHeartRateDataByRange, 
-  calculateHeartRateMetrics 
+  calculateHeartRateMetrics,
+  getHeartRateDataByRange,
 } from "@/components/widgets/heart-rate.data";
 import useDateRangeStore from "@/store/date-range-store";
-import { RiHeartPulseLine } from "@remixicon/react";
 import {
   endOfMonth,
   endOfWeek,
@@ -52,7 +46,7 @@ export default function HeartRate() {
   const chartData = getHeartRateDataByRange(dateRange);
   const metrics = calculateHeartRateMetrics(chartData);
   const today = new Date();
-  
+
   // Format date range based on selected range
   const getFormattedDateRange = () => {
     switch (dateRange) {
@@ -77,9 +71,9 @@ export default function HeartRate() {
         return format(today, "EEEE, MMMM d, yyyy");
     }
   };
-  
+
   const formattedDate = getFormattedDateRange();
-  
+
   // Determine which data key to use for X-axis based on date range
   const getXAxisDataKey = () => {
     switch (dateRange) {
@@ -95,78 +89,78 @@ export default function HeartRate() {
         return "time";
     }
   };
-  
+
   // Use memoization to prevent unnecessary recalculations
-  const chartContent = useMemo(() => (
-    <ResponsiveContainer width="100%" height="100%">
-      <AreaChart
-        data={chartData}
-        margin={{ top: 10, right: 10, left: 0, bottom: 10 }}
-      >
-        <CartesianGrid 
-          vertical={false} 
-          strokeDasharray="3 3" 
-        />
-        <XAxis 
-          dataKey={getXAxisDataKey()} 
-          axisLine={false}
-          tickLine={false}
-          tickMargin={10}
-          interval="preserveStartEnd"
-          minTickGap={30}
-        />
-        <YAxis 
-          domain={[50, 200]} 
-          axisLine={false}
-          tickLine={false}
-          tickFormatter={(value) => `${value}`}
-          width={30}
-          ticks={[50, 100, 150, 200]}
-        />
-        <Tooltip
-          content={(props) => {
-            const { active, payload } = props;
-            if (active && payload && payload.length) {
-              const data = payload[0].payload;
-              const xLabel = data[getXAxisDataKey()];
-              return (
-                <div className="rounded-md border border-stroke-soft-200 bg-bg-white-0 p-2 shadow-sm">
-                  <div className="text-label-sm font-medium">{xLabel}</div>
-                  <div className="text-label-xs text-text-sub-600">
-                    Range: {data.min}-{data.max} {metrics.unit}
+  const chartContent = useMemo(
+    () => (
+      <ResponsiveContainer width="100%" height="100%">
+        <AreaChart
+          data={chartData}
+          margin={{ top: 10, right: 10, left: 0, bottom: 10 }}
+        >
+          <CartesianGrid vertical={false} strokeDasharray="3 3" />
+          <XAxis
+            dataKey={getXAxisDataKey()}
+            axisLine={false}
+            tickLine={false}
+            tickMargin={10}
+            interval="preserveStartEnd"
+            minTickGap={30}
+          />
+          <YAxis
+            domain={[50, 200]}
+            axisLine={false}
+            tickLine={false}
+            tickFormatter={(value) => `${value}`}
+            width={30}
+            ticks={[50, 100, 150, 200]}
+          />
+          <Tooltip
+            content={(props) => {
+              const { active, payload } = props;
+              if (active && payload && payload.length) {
+                const data = payload[0].payload;
+                const xLabel = data[getXAxisDataKey()];
+                return (
+                  <div className="shadow-sm rounded-md border border-stroke-soft-200 bg-bg-white-0 p-2">
+                    <div className="text-label-sm font-medium">{xLabel}</div>
+                    <div className="text-label-xs text-text-sub-600">
+                      Range: {data.min}-{data.max} {metrics.unit}
+                    </div>
+                    <div className="text-label-xs">
+                      Avg: {data.value} {metrics.unit}
+                    </div>
                   </div>
-                  <div className="text-label-xs">
-                    Avg: {data.value} {metrics.unit}
-                  </div>
-                </div>
-              );
-            }
-            return null;
-          }}
-        />
-        <Area 
-          type="monotone"
-          dataKey="value"
-          stroke="var(--red-500)"
-          fill="var(--red-100)"
-          strokeWidth={2}
-        />
-        <Area
-          type="monotone"
-          dataKey="min"
-          strokeOpacity={0}
-          fillOpacity={0}
-        />
-        <Area
-          type="monotone"
-          dataKey="max"
-          strokeOpacity={0}
-          fillOpacity={0}
-        />
-      </AreaChart>
-    </ResponsiveContainer>
-  ), [chartData, dateRange]); // Recalculate when data or date range changes
-  
+                );
+              }
+              return null;
+            }}
+          />
+          <Area
+            type="monotone"
+            dataKey="value"
+            stroke="var(--red-500)"
+            fill="var(--red-100)"
+            strokeWidth={2}
+          />
+          <Area
+            type="monotone"
+            dataKey="min"
+            strokeOpacity={0}
+            fillOpacity={0}
+          />
+          <Area
+            type="monotone"
+            dataKey="max"
+            strokeOpacity={0}
+            fillOpacity={0}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    ),
+    [chartData, dateRange],
+  ); // Recalculate when data or date range changes
+
   return (
     <Card className="grow overflow-y-auto">
       <CardHeader>
@@ -181,28 +175,21 @@ export default function HeartRate() {
             <span className="text-3xl font-medium text-red-600">
               {metrics.min}–{metrics.max}
             </span>
-            <span className="text-paragraph-sm text-text-sub-600">{metrics.unit}</span>
+            <span className="text-paragraph-sm text-text-sub-600">
+              {metrics.unit}
+            </span>
           </h2>
           <div className="text-label-sm text-text-sub-600">
-            Average: {metrics.average} {metrics.unit}
+            Average: {metrics.average} {metrics.unit} &ensp; Resting rate:{" "}
+            {metrics.min} {metrics.unit}
           </div>
         </div>
-        
+
         {/* Heart Rate Chart */}
         <div className="h-60">
-          <ChartContainer config={CHART_CONFIG}>
-            {chartContent}
-          </ChartContainer>
+          <ChartContainer config={CHART_CONFIG}>{chartContent}</ChartContainer>
         </div>
       </CardContent>
-      <CardFooter className="flex items-center text-label-sm">
-        <div className="flex gap-2">
-          <RiHeartPulseLine className="size-6 text-red-500" />
-          <span className="text-text-sub-600">
-            Resting rate: {metrics.min} {metrics.unit}
-          </span>
-        </div>
-      </CardFooter>
     </Card>
   );
 }
