@@ -1,6 +1,7 @@
 import Header from "@/components/shared/header";
 import Activity from "@/components/widgets/activity";
 import Distance from "@/components/widgets/distance";
+import HeartRate from "@/components/widgets/heart-rate";
 import Steps from "@/components/widgets/steps";
 import Workouts from "@/components/widgets/workouts";
 import { createLazyFileRoute } from "@tanstack/react-router";
@@ -16,18 +17,21 @@ const layouts = {
     { i: "steps", x: 1, y: 0, w: 1, h: 1 },
     { i: "distance", x: 2, y: 0, w: 1, h: 1 },
     { i: "workouts", x: 0, y: 1, w: 1, h: 1 },
+    { i: "heart-rate", x: 1, y: 1, w: 1, h: 1 },
   ],
   md: [
     { i: "activity", x: 0, y: 0, w: 1, h: 1 },
     { i: "steps", x: 1, y: 0, w: 1, h: 1 },
     { i: "distance", x: 0, y: 1, w: 2, h: 1 },
-    { i: "workouts", x: 0, y: 2, w: 2, h: 1 },
+    { i: "workouts", x: 0, y: 2, w: 1, h: 1 },
+    { i: "heart-rate", x: 1, y: 2, w: 1, h: 1 },
   ],
   sm: [
     { i: "activity", x: 0, y: 0, w: 1, h: 1 },
     { i: "steps", x: 0, y: 1, w: 1, h: 1 },
     { i: "distance", x: 0, y: 2, w: 1, h: 1 },
     { i: "workouts", x: 0, y: 3, w: 1, h: 1 },
+    { i: "heart-rate", x: 0, y: 4, w: 1, h: 1 },
   ],
 };
 
@@ -63,6 +67,9 @@ function Index() {
           </div>
           <div key="workouts">
             <Workouts />
+          </div>
+          <div key="heart-rate">
+            <HeartRate />
           </div>
         </ResponsiveGridLayout>
       </div>
