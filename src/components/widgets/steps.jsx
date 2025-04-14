@@ -94,7 +94,7 @@ export default function Steps() {
   };
 
   return (
-    <Card className="grow">
+    <Card className="grow overflow-y-auto">
       <CardHeader>
         <CardTitle>Steps</CardTitle>
         <CardDescription>{formattedDate}</CardDescription>

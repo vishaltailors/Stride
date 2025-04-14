@@ -430,7 +430,10 @@ export default function Activity() {
   );
 
   return (
-    <Card className="flex grow flex-col overflow-x-hidden" ref={cardRef}>
+    <Card
+      className="flex grow flex-col overflow-y-auto overflow-x-hidden"
+      ref={cardRef}
+    >
       <div style={{ minHeight: cardHeight || "auto" }}>
         <TransitionPanel
           activeIndex={activeIndex}

@@ -95,7 +95,7 @@ export default function Distance() {
   };
 
   return (
-    <Card className="grow">
+    <Card className="grow overflow-y-auto">
       <CardHeader>
         <CardTitle>Distance</CardTitle>
         <CardDescription>{formattedDate}</CardDescription>
