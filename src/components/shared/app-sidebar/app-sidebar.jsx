@@ -17,7 +17,10 @@ export async function AppSidebar() {
     <Sidebar collapsible="icon">
       <SidebarHeader>
         <SidebarMenu>
-          <SidebarMenuButton>
+          <SidebarMenuButton
+            size="lg"
+            className="group-data-[collapsible=icon]:my-1"
+          >
             <div>
               <div className="flex items-center gap-2">
                 <img

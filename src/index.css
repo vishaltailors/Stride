@@ -309,6 +309,12 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --chart-1: var(--orange-600);
+    --chart-2: var(--yellow-600);
+    --chart-3: var(--sky-600);
+    --chart-4: var(--purple-600);
+    --chart-5: var(--teal-600);
   }
 
   .dark {
@@ -392,6 +398,12 @@
     --social-tidal: #fff;
     --social-amazon: #fff;
     --social-zendesk: #fff;
+
+    --chart-1: var(--orange-700);
+    --chart-2: var(--yellow-700);
+    --chart-3: var(--sky-700);
+    --chart-4: var(--purple-700);
+    --chart-5: var(--teal-700);
   }
   /*#endregion Colors */
 }
