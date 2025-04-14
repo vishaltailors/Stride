@@ -18,8 +18,16 @@ import {
   getDistanceDataByRange,
 } from "@/components/widgets/distance.data";
 import useDateRangeStore from "@/store/date-range-store";
-import { format, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear } from "date-fns";
 import { RiRoadMapLine } from "@remixicon/react";
+import {
+  endOfMonth,
+  endOfWeek,
+  endOfYear,
+  format,
+  startOfMonth,
+  startOfWeek,
+  startOfYear,
+} from "date-fns";
 import {
   Bar,
   BarChart,
@@ -36,7 +44,7 @@ export default function Distance() {
 
   // Get current date
   const today = new Date();
-  
+
   const getFormattedDateRange = () => {
     switch (dateRange) {
       case "today":
@@ -60,7 +68,7 @@ export default function Distance() {
         return format(today, "EEEE, MMMM d, yyyy");
     }
   };
-  
+
   const formattedDate = getFormattedDateRange();
 
   // Determine which data key to use for X-axis based on date range
