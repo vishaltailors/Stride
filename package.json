@@ -24,6 +24,7 @@
     "motion": "^12.6.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-grid-layout": "^1.5.1",
     "recharts": "^2.15.2",
     "tailwind-merge": "^2",
     "tailwind-variants": "^1.0.0",

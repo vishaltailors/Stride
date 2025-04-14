@@ -423,6 +423,19 @@
   transform-origin: center;
 }
 
+/* scrollbar */
+::-webkit-scrollbar {
+  @apply w-1.5;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-neutral-300 hover:bg-neutral-400;
+}
+
 html,
 body {
   @apply min-h-screen;
@@ -439,4 +452,12 @@ body,
 
 .container {
   @apply mx-auto max-w-screen-2xl px-8;
+}
+
+.react-grid-item {
+  @apply flex h-[470px] flex-col rounded-xl bg-bg-white-0;
+}
+
+.react-grid-item.react-grid-placeholder {
+  @apply rounded-xl bg-primary-alpha-24;
 }

@@ -18,8 +18,16 @@ import {
   getStepsDataByRange,
 } from "@/components/widgets/steps.data";
 import useDateRangeStore from "@/store/date-range-store";
-import { format, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear } from "date-fns";
 import { RiFootprintLine } from "@remixicon/react";
+import {
+  endOfMonth,
+  endOfWeek,
+  endOfYear,
+  format,
+  startOfMonth,
+  startOfWeek,
+  startOfYear,
+} from "date-fns";
 import {
   Bar,
   BarChart,
@@ -42,7 +50,7 @@ export default function Steps() {
   const totalSteps = calculateTotalSteps(chartData);
 
   const today = new Date();
-  
+
   const getFormattedDateRange = () => {
     switch (dateRange) {
       case "today":
@@ -66,7 +74,7 @@ export default function Steps() {
         return format(today, "EEEE, MMMM d, yyyy");
     }
   };
-  
+
   const formattedDate = getFormattedDateRange();
 
   // Determine which data key to use for X-axis based on date range
@@ -86,7 +94,7 @@ export default function Steps() {
   };
 
   return (
-    <Card>
+    <Card className="grow">
       <CardHeader>
         <CardTitle>Steps</CardTitle>
         <CardDescription>{formattedDate}</CardDescription>
