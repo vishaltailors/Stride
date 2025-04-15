@@ -13,6 +13,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 import useDateRangeStore from "@/store/date-range-store";
 import {
   Area,
@@ -20,8 +25,6 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
@@ -121,10 +124,10 @@ export default function HealthTrio() {
         {/* Water and Sleep Section - Side by Side */}
         <div className="flex gap-4">
           {/* Water Section */}
-          <div className="w-1/2 rounded-lg bg-bg-weak-50 p-4">
+          <div className="flex w-1/2 flex-col rounded-lg bg-bg-weak-50 p-4">
             <h3 className="mb-4 text-label-md font-medium">Water</h3>
 
-            <div className="flex flex-col items-center">
+            <div className="flex grow flex-col items-center">
               {dateRange === "today" ? (
                 <>
                   {/* Water Bottle Visualization for Today */}
@@ -157,7 +160,7 @@ export default function HealthTrio() {
                     <div className="font-medium">
                       {water.current} ml ({water.percentage}%)
                     </div>
-                    <div className="text-xs text-text-sub-600">
+                    <div className="text-label-xs text-text-sub-600">
                       Out of {water.goal} ml
                     </div>
                   </div>
@@ -165,29 +168,26 @@ export default function HealthTrio() {
               ) : (
                 <>
                   {/* Water Bar Chart for Other Date Ranges */}
-                  <div className="h-36 w-full">
-                    <ResponsiveContainer width="100%" height="100%">
+                  <div className="flex grow flex-col">
+                    <ChartContainer
+                      className="h-full w-full"
+                      config={{
+                        water: { label: "Water", color: waterChartColors.fill },
+                      }}
+                    >
                       <BarChart
                         data={water.history}
-                        margin={{ top: 5, right: 5, left: 5, bottom: 20 }}
+                        margin={{ top: 5, right: 5, left: 5 }}
                       >
                         <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                        <XAxis
-                          dataKey={
-                            dateRange === "this-week"
-                              ? "day"
-                              : dateRange === "this-month"
-                                ? "week"
-                                : "month"
-                          }
-                          tick={{ fontSize: 10 }}
-                          tickLine={false}
-                          axisLine={false}
-                        />
+                        <XAxis hide />
                         <YAxis hide />
-                        <Tooltip
-                          formatter={(value) => [`${value} ml`, "Water"]}
-                          labelFormatter={(label) => `${label}`}
+                        <ChartTooltip
+                          content={
+                            <ChartTooltipContent
+                              formatter={(value) => [`${value} ml`, " Water"]}
+                            />
+                          }
                         />
                         <Bar
                           dataKey="amount"
@@ -195,7 +195,7 @@ export default function HealthTrio() {
                           radius={waterChartColors.radius}
                         />
                       </BarChart>
-                    </ResponsiveContainer>
+                    </ChartContainer>
                   </div>
 
                   {/* Water Info for Other Date Ranges */}
@@ -203,7 +203,7 @@ export default function HealthTrio() {
                     <div className="font-medium">
                       {water.current} ml (avg. {water.percentage}%)
                     </div>
-                    <div className="text-xs text-text-sub-600">
+                    <div className="text-label-xs text-text-sub-600">
                       Out of {water.goal} ml daily goal
                     </div>
                   </div>
@@ -213,12 +213,32 @@ export default function HealthTrio() {
           </div>
 
           {/* Sleep Section */}
-          <div className="w-1/2 rounded-lg bg-bg-weak-50 p-4">
+          <div className="flex w-1/2 flex-col rounded-lg bg-bg-weak-50 p-4">
             <h3 className="mb-4 text-label-md font-medium">Sleep</h3>
 
-            <div className="h-36">
+            <div className="flex grow flex-col">
               {/* Sleep Chart using Recharts */}
-              <ResponsiveContainer width="100%" height="100%">
+              <ChartContainer
+                className="h-full w-full"
+                config={{
+                  deepSleep: {
+                    label: sleepChartColors.deepSleep.label,
+                    color: sleepChartColors.deepSleep.legendColor,
+                  },
+                  rem: {
+                    label: sleepChartColors.rem.label,
+                    color: sleepChartColors.rem.legendColor,
+                  },
+                  lightSleep: {
+                    label: sleepChartColors.lightSleep.label,
+                    color: sleepChartColors.lightSleep.legendColor,
+                  },
+                  awake: {
+                    label: sleepChartColors.awake.label,
+                    color: sleepChartColors.awake.legendColor,
+                  },
+                }}
+              >
                 <AreaChart
                   data={sleepData}
                   margin={{ top: 5, right: 5, left: 5, bottom: 20 }}
@@ -239,16 +259,12 @@ export default function HealthTrio() {
                     tickLine={false}
                     axisLine={false}
                   />
-                  <Tooltip
-                    formatter={(value, name) => {
-                      const labels = {
-                        deepSleep: sleepChartColors.deepSleep.label,
-                        rem: sleepChartColors.rem.label,
-                        lightSleep: sleepChartColors.lightSleep.label,
-                        awake: sleepChartColors.awake.label,
-                      };
-                      return [`${value} min`, labels[name]];
-                    }}
+                  <ChartTooltip
+                    content={
+                      <ChartTooltipContent
+                        formatter={(value, name) => [`${value} min`, name]}
+                      />
+                    }
                   />
                   <defs>
                     <linearGradient
@@ -341,7 +357,7 @@ export default function HealthTrio() {
                     strokeWidth={2}
                   />
                 </AreaChart>
-              </ResponsiveContainer>
+              </ChartContainer>
 
               {/* Sleep Legend */}
               <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[10px]">

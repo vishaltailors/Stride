@@ -28,14 +28,7 @@ import {
   startOfWeek,
   startOfYear,
 } from "date-fns";
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  XAxis,
-  YAxis,
-} from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 const stepsChartConfig = {
   steps: {
