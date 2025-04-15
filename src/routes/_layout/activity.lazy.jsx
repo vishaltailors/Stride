@@ -9,6 +9,7 @@ import {
   PageTitle,
 } from "@/components/shared/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import {
   getActivityDataByRange,
   getCurrentActivityMetrics,
@@ -65,6 +66,7 @@ function Activity() {
     <>
       <PageHeader>
         <PageHeaderContent>
+          <SidebarTrigger />
           <PageIcon as={RiRunLine} />
           <PageHeaderInfo>
             <PageTitle>

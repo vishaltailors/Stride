@@ -1,13 +1,13 @@
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { RiCustomerServiceLine, RiSettings2Line } from "@remixicon/react";
+import { RiCustomerServiceLine, RiHistoryLine } from "@remixicon/react";
 import { Link } from "@tanstack/react-router";
 
 export function NavSecondary() {
   const items = [
     {
-      title: "Settings",
-      url: "/settings",
-      icon: <RiSettings2Line className="size-5" />,
+      title: "Changelog",
+      url: "/changelog",
+      icon: <RiHistoryLine className="size-5" />,
     },
     {
       title: "Support",

@@ -19,6 +19,7 @@ import { Route as LayoutImport } from './routes/_layout'
 
 const LayoutIndexLazyImport = createFileRoute('/_layout/')()
 const LayoutWorkoutsLazyImport = createFileRoute('/_layout/workouts')()
+const LayoutChangelogLazyImport = createFileRoute('/_layout/changelog')()
 const LayoutActivityLazyImport = createFileRoute('/_layout/activity')()
 
 // Create/Update Routes
@@ -40,6 +41,14 @@ const LayoutWorkoutsLazyRoute = LayoutWorkoutsLazyImport.update({
   getParentRoute: () => LayoutRoute,
 } as any).lazy(() =>
   import('./routes/_layout/workouts.lazy').then((d) => d.Route),
+)
+
+const LayoutChangelogLazyRoute = LayoutChangelogLazyImport.update({
+  id: '/changelog',
+  path: '/changelog',
+  getParentRoute: () => LayoutRoute,
+} as any).lazy(() =>
+  import('./routes/_layout/changelog.lazy').then((d) => d.Route),
 )
 
 const LayoutActivityLazyRoute = LayoutActivityLazyImport.update({
@@ -68,6 +77,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutActivityLazyImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/changelog': {
+      id: '/_layout/changelog'
+      path: '/changelog'
+      fullPath: '/changelog'
+      preLoaderRoute: typeof LayoutChangelogLazyImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/workouts': {
       id: '/_layout/workouts'
       path: '/workouts'
@@ -89,12 +105,14 @@ declare module '@tanstack/react-router' {
 
 interface LayoutRouteChildren {
   LayoutActivityLazyRoute: typeof LayoutActivityLazyRoute
+  LayoutChangelogLazyRoute: typeof LayoutChangelogLazyRoute
   LayoutWorkoutsLazyRoute: typeof LayoutWorkoutsLazyRoute
   LayoutIndexLazyRoute: typeof LayoutIndexLazyRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutActivityLazyRoute: LayoutActivityLazyRoute,
+  LayoutChangelogLazyRoute: LayoutChangelogLazyRoute,
   LayoutWorkoutsLazyRoute: LayoutWorkoutsLazyRoute,
   LayoutIndexLazyRoute: LayoutIndexLazyRoute,
 }
@@ -105,12 +123,14 @@ const LayoutRouteWithChildren =
 export interface FileRoutesByFullPath {
   '': typeof LayoutRouteWithChildren
   '/activity': typeof LayoutActivityLazyRoute
+  '/changelog': typeof LayoutChangelogLazyRoute
   '/workouts': typeof LayoutWorkoutsLazyRoute
   '/': typeof LayoutIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/activity': typeof LayoutActivityLazyRoute
+  '/changelog': typeof LayoutChangelogLazyRoute
   '/workouts': typeof LayoutWorkoutsLazyRoute
   '/': typeof LayoutIndexLazyRoute
 }
@@ -119,19 +139,21 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_layout': typeof LayoutRouteWithChildren
   '/_layout/activity': typeof LayoutActivityLazyRoute
+  '/_layout/changelog': typeof LayoutChangelogLazyRoute
   '/_layout/workouts': typeof LayoutWorkoutsLazyRoute
   '/_layout/': typeof LayoutIndexLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/activity' | '/workouts' | '/'
+  fullPaths: '' | '/activity' | '/changelog' | '/workouts' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/activity' | '/workouts' | '/'
+  to: '/activity' | '/changelog' | '/workouts' | '/'
   id:
     | '__root__'
     | '/_layout'
     | '/_layout/activity'
+    | '/_layout/changelog'
     | '/_layout/workouts'
     | '/_layout/'
   fileRoutesById: FileRoutesById
@@ -162,12 +184,17 @@ export const routeTree = rootRoute
       "filePath": "_layout.jsx",
       "children": [
         "/_layout/activity",
+        "/_layout/changelog",
         "/_layout/workouts",
         "/_layout/"
       ]
     },
     "/_layout/activity": {
       "filePath": "_layout/activity.lazy.jsx",
+      "parent": "/_layout"
+    },
+    "/_layout/changelog": {
+      "filePath": "_layout/changelog.lazy.jsx",
       "parent": "/_layout"
     },
     "/_layout/workouts": {
