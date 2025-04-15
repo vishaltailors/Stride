@@ -105,32 +105,30 @@ export default function Distance() {
           <h3 className="mb-2 text-label-sm font-medium">DISTANCE</h3>
           <h2 className="mb-2 font-medium text-sky-600">{totalDistance}KM</h2>
           <ChartContainer config={distanceChartConfig}>
-            <ResponsiveContainer width="100%" height={150}>
-              <BarChart data={chartData} barSize={12}>
-                <CartesianGrid vertical={false} strokeDasharray="3 3" />
-                <XAxis
-                  dataKey={getXAxisDataKey()}
-                  tickLine={false}
-                  tickMargin={10}
-                  axisLine={false}
-                  interval="preserveStartEnd"
-                  minTickGap={30}
-                />
-                <YAxis
-                  tickLine={false}
-                  axisLine={false}
-                  tickFormatter={(value) => `${value.toFixed(2)}`}
-                  domain={[0, "dataMax + 0.1"]}
-                  width={30}
-                />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Bar
-                  dataKey="distance"
-                  fill="var(--chart-3)"
-                  radius={[4, 4, 0, 0]}
-                />
-              </BarChart>
-            </ResponsiveContainer>
+            <BarChart data={chartData} barSize={12}>
+              <CartesianGrid vertical={false} strokeDasharray="3 3" />
+              <XAxis
+                dataKey={getXAxisDataKey()}
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                interval="preserveStartEnd"
+                minTickGap={30}
+              />
+              <YAxis
+                tickLine={false}
+                axisLine={false}
+                tickFormatter={(value) => `${value.toFixed(2)}`}
+                domain={[0, "dataMax + 0.1"]}
+                width={30}
+              />
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <Bar
+                dataKey="distance"
+                fill="var(--chart-3)"
+                radius={[4, 4, 0, 0]}
+              />
+            </BarChart>
           </ChartContainer>
         </div>
       </CardContent>

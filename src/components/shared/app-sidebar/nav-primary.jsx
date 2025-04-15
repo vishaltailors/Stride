@@ -13,9 +13,9 @@ export function NavPrimary() {
     },
   ];
 
-  return items.map((item) => (
-    <Link href={item.url}>
-      <SidebarMenuItem key={item.title}>
+  return items.map((item, index) => (
+    <Link key={index} href={item.url}>
+      <SidebarMenuItem>
         <SidebarMenuButton tooltip={`${item.title}`}>
           {item.icon}
           <span>{item.title}</span>

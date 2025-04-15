@@ -107,32 +107,30 @@ export default function Steps() {
             {totalSteps.toLocaleString()}
           </h2>
           <ChartContainer config={stepsChartConfig}>
-            <ResponsiveContainer width="100%" height={150}>
-              <BarChart data={chartData} barSize={12}>
-                <CartesianGrid vertical={false} strokeDasharray="3 3" />
-                <XAxis
-                  dataKey={getXAxisDataKey()}
-                  tickLine={false}
-                  tickMargin={10}
-                  axisLine={false}
-                  interval="preserveStartEnd"
-                  minTickGap={30}
-                />
-                <YAxis
-                  tickLine={false}
-                  axisLine={false}
-                  tickFormatter={(value) => `${value}`}
-                  domain={[0, "dataMax + 200"]}
-                  width={30}
-                />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Bar
-                  dataKey="steps"
-                  fill="var(--chart-1)"
-                  radius={[4, 4, 0, 0]}
-                />
-              </BarChart>
-            </ResponsiveContainer>
+            <BarChart data={chartData} barSize={12}>
+              <CartesianGrid vertical={false} strokeDasharray="3 3" />
+              <XAxis
+                dataKey={getXAxisDataKey()}
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                interval="preserveStartEnd"
+                minTickGap={30}
+              />
+              <YAxis
+                tickLine={false}
+                axisLine={false}
+                tickFormatter={(value) => `${value}`}
+                domain={[0, "dataMax + 200"]}
+                width={30}
+              />
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <Bar
+                dataKey="steps"
+                fill="var(--chart-1)"
+                radius={[4, 4, 0, 0]}
+              />
+            </BarChart>
           </ChartContainer>
         </div>
       </CardContent>
