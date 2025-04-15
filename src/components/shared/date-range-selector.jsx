@@ -26,14 +26,22 @@ export const dateRangeOptions = [
   },
 ];
 
-export default function DateRangeSelector({ className = "w-auto min-w-32", align = "end" }) {
+export default function DateRangeSelector({ className = "w-auto min-w-32", align = "end", onChange }) {
   const dateRange = useDateRangeStore((state) => state.dateRange);
   const setDateRange = useDateRangeStore((state) => state.setDateRange);
+  
+  // Handle date range change
+  const handleDateRangeChange = (value) => {
+    setDateRange(value);
+    if (onChange) {
+      onChange(value);
+    }
+  };
 
   return (
     <Select
       defaultValue="today"
-      onValueChange={setDateRange}
+      onValueChange={handleDateRangeChange}
       value={dateRange}
     >
       <SelectTrigger className={className}>
