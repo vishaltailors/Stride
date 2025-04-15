@@ -1,5 +1,3 @@
-"use client";
-
 import { cn, cnExt } from "@/utils/cn";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { RiArrowRightLine } from "@remixicon/react";

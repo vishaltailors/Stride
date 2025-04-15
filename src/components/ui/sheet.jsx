@@ -1,5 +1,3 @@
-"use client";
-
 import { cn } from "@/utils/cn";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { RiCloseLine } from "@remixicon/react";

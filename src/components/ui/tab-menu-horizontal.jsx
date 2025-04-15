@@ -1,5 +1,3 @@
-"use client";
-
 import { useTabObserver } from "@/hooks/use-tab-observer";
 import { cn, cnExt } from "@/utils/cn";
 import { Slottable } from "@radix-ui/react-slot";

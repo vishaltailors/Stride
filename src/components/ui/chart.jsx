@@ -1,5 +1,3 @@
-"use client";
-
 import { cn } from "@/utils/cn";
 import * as React from "react";
 import * as RechartsPrimitive from "recharts";

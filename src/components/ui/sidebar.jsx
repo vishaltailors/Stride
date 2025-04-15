@@ -1,5 +1,3 @@
-"use client";
-
 import { Button, ButtonIcon } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
 import { Input, InputRoot, InputWrapper } from "@/components/ui/input";

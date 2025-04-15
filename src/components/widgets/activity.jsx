@@ -1,5 +1,3 @@
-"use client";
-
 import { Button, ButtonIcon } from "@/components/ui/button";
 import {
   Card,

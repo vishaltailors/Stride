@@ -1,5 +1,3 @@
-"use client";
-
 import { cnExt } from "@/utils/cn";
 import { tv } from "@/utils/tv";
 import * as ScrollAreaPrimitives from "@radix-ui/react-scroll-area";

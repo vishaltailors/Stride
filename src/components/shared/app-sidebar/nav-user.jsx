@@ -1,5 +1,3 @@
-"use client";
-
 import ProfileImage from "@/assets/images/avatar.png";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {

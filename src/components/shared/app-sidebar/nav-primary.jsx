@@ -1,5 +1,3 @@
-"use client";
-
 import FigureStrengthTraining from "@/assets/images/figure-strengthtraining.svg";
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { RiDashboardLine, RiRunLine } from "@remixicon/react";
