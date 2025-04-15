@@ -294,35 +294,37 @@ export default function Activity() {
               </div>
             </div>
             <div className="mt-2 h-32">
-              <BarChart
-                data={mockTimeData}
-                margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
-              >
-                <XAxis dataKey="time" tick={{ fontSize: 10 }} />
-                <YAxis hide />
-                <Tooltip
-                  cursor={{ fill: "rgba(0, 0, 0, 0.05)" }}
-                  content={(props) => {
-                    const { payload } = props;
-                    if (payload && payload.length > 0) {
-                      return (
-                        <div className="border-border shadow-sm rounded-md border bg-bg-white-0 p-2">
-                          <div className="text-label-sm">
-                            {payload[0].payload.time}: {payload[0].value}{" "}
-                            {activityMetrics.move.unit}
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={mockTimeData}
+                  margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+                >
+                  <XAxis dataKey="time" tick={{ fontSize: 10 }} />
+                  <YAxis hide />
+                  <Tooltip
+                    cursor={{ fill: "rgba(0, 0, 0, 0.05)" }}
+                    content={(props) => {
+                      const { payload } = props;
+                      if (payload && payload.length > 0) {
+                        return (
+                          <div className="border-border shadow-sm rounded-md border bg-bg-white-0 p-2">
+                            <div className="text-label-sm">
+                              {payload[0].payload.time}: {payload[0].value}{" "}
+                              {activityMetrics.move.unit}
+                            </div>
                           </div>
-                        </div>
-                      );
-                    }
-                    return null;
-                  }}
-                />
-                <Bar
-                  dataKey="move"
-                  fill="var(--orange-500)"
-                  radius={[4, 4, 0, 0]}
-                />
-              </BarChart>
+                        );
+                      }
+                      return null;
+                    }}
+                  />
+                  <Bar
+                    dataKey="move"
+                    fill="var(--orange-500)"
+                    radius={[4, 4, 0, 0]}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
             <div className="mt-1 text-label-sm text-text-sub-600">
               Total: 2,014 KCAL
@@ -339,35 +341,37 @@ export default function Activity() {
               </div>
             </div>
             <div className="mt-2 h-32">
-              <BarChart
-                data={mockTimeData}
-                margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
-              >
-                <XAxis dataKey="time" tick={{ fontSize: 10 }} />
-                <YAxis hide />
-                <Tooltip
-                  cursor={{ fill: "rgba(0, 0, 0, 0.05)" }}
-                  content={(props) => {
-                    const { payload } = props;
-                    if (payload && payload.length > 0) {
-                      return (
-                        <div className="border-border shadow-sm rounded-md border bg-bg-white-0 p-2">
-                          <div className="text-label-sm">
-                            {payload[0].payload.time}: {payload[0].value}{" "}
-                            {activityMetrics.exercise.unit}
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={mockTimeData}
+                  margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+                >
+                  <XAxis dataKey="time" tick={{ fontSize: 10 }} />
+                  <YAxis hide />
+                  <Tooltip
+                    cursor={{ fill: "rgba(0, 0, 0, 0.05)" }}
+                    content={(props) => {
+                      const { payload } = props;
+                      if (payload && payload.length > 0) {
+                        return (
+                          <div className="border-border shadow-sm rounded-md border bg-bg-white-0 p-2">
+                            <div className="text-label-sm">
+                              {payload[0].payload.time}: {payload[0].value}{" "}
+                              {activityMetrics.exercise.unit}
+                            </div>
                           </div>
-                        </div>
-                      );
-                    }
-                    return null;
-                  }}
-                />
-                <Bar
-                  dataKey="exercise"
-                  fill="var(--green-500)"
-                  radius={[4, 4, 0, 0]}
-                />
-              </BarChart>
+                        );
+                      }
+                      return null;
+                    }}
+                  />
+                  <Bar
+                    dataKey="exercise"
+                    fill="var(--green-500)"
+                    radius={[4, 4, 0, 0]}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
             <div className="mt-1 text-label-sm text-text-sub-600">
               Total: 2h 30m
@@ -384,35 +388,37 @@ export default function Activity() {
               </div>
             </div>
             <div className="mt-2 h-32">
-              <BarChart
-                data={mockTimeData}
-                margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
-              >
-                <XAxis dataKey="time" tick={{ fontSize: 10 }} />
-                <YAxis hide />
-                <Tooltip
-                  cursor={{ fill: "rgba(0, 0, 0, 0.05)" }}
-                  content={(props) => {
-                    const { payload } = props;
-                    if (payload && payload.length > 0) {
-                      return (
-                        <div className="border-border shadow-sm rounded-md border bg-bg-white-0 p-2">
-                          <div className="text-label-sm">
-                            {payload[0].payload.time}: {payload[0].value}{" "}
-                            {activityMetrics.stand.unit}
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={mockTimeData}
+                  margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+                >
+                  <XAxis dataKey="time" tick={{ fontSize: 10 }} />
+                  <YAxis hide />
+                  <Tooltip
+                    cursor={{ fill: "rgba(0, 0, 0, 0.05)" }}
+                    content={(props) => {
+                      const { payload } = props;
+                      if (payload && payload.length > 0) {
+                        return (
+                          <div className="border-border shadow-sm rounded-md border bg-bg-white-0 p-2">
+                            <div className="text-label-sm">
+                              {payload[0].payload.time}: {payload[0].value}{" "}
+                              {activityMetrics.stand.unit}
+                            </div>
                           </div>
-                        </div>
-                      );
-                    }
-                    return null;
-                  }}
-                />
-                <Bar
-                  dataKey="stand"
-                  fill="var(--sky-500)"
-                  radius={[4, 4, 0, 0]}
-                />
-              </BarChart>
+                        );
+                      }
+                      return null;
+                    }}
+                  />
+                  <Bar
+                    dataKey="stand"
+                    fill="var(--sky-500)"
+                    radius={[4, 4, 0, 0]}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
             <div className="mt-1 text-label-sm text-text-sub-600">
               0 idle hours

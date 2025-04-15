@@ -1,6 +1,7 @@
 import Header from "@/components/shared/header";
 import Activity from "@/components/widgets/activity";
 import Distance from "@/components/widgets/distance";
+import HealthTrio from "@/components/widgets/health-trio";
 import HeartRate from "@/components/widgets/heart-rate";
 import Steps from "@/components/widgets/steps";
 import Workouts from "@/components/widgets/workouts";
@@ -19,6 +20,7 @@ const defaultLayouts = {
     { i: "distance", x: 2, y: 0, w: 1, h: 1 },
     { i: "workouts", x: 0, y: 1, w: 1, h: 1 },
     { i: "heart-rate", x: 1, y: 1, w: 1, h: 1 },
+    { i: "health-trio", x: 2, y: 1, w: 1, h: 1 },
   ],
   md: [
     { i: "activity", x: 0, y: 0, w: 1, h: 1 },
@@ -26,6 +28,7 @@ const defaultLayouts = {
     { i: "distance", x: 0, y: 1, w: 2, h: 1 },
     { i: "workouts", x: 0, y: 2, w: 1, h: 1 },
     { i: "heart-rate", x: 1, y: 2, w: 1, h: 1 },
+    { i: "health-trio", x: 2, y: 2, w: 1, h: 1 },
   ],
   sm: [
     { i: "activity", x: 0, y: 0, w: 1, h: 1 },
@@ -33,6 +36,7 @@ const defaultLayouts = {
     { i: "distance", x: 0, y: 2, w: 1, h: 1 },
     { i: "workouts", x: 0, y: 3, w: 1, h: 1 },
     { i: "heart-rate", x: 0, y: 4, w: 1, h: 1 },
+    { i: "health-trio", x: 0, y: 5, w: 1, h: 1 },
   ],
 };
 
@@ -113,6 +117,7 @@ function Index() {
           isDraggable={isDraggable}
           isResizable={false}
           onLayoutChange={handleLayoutChange}
+          useCSSTransforms={false}
         >
           <div key="activity">
             <Activity />
@@ -128,6 +133,9 @@ function Index() {
           </div>
           <div key="heart-rate">
             <HeartRate />
+          </div>
+          <div key="health-trio">
+            <HealthTrio />
           </div>
         </ResponsiveGridLayout>
       </div>
