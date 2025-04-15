@@ -11,10 +11,10 @@ import { RiHistoryLine } from "@remixicon/react";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/_layout/changelog")({
-  component: RouteComponent,
+  component: Changelog,
 });
 
-function RouteComponent() {
+function Changelog() {
   return (
     <>
       <PageHeader>

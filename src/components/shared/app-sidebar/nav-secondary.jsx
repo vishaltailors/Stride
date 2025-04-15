@@ -1,5 +1,5 @@
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { RiCustomerServiceLine, RiHistoryLine } from "@remixicon/react";
+import { RiHistoryLine, RiInformationLine } from "@remixicon/react";
 import { Link } from "@tanstack/react-router";
 
 export function NavSecondary() {
@@ -10,9 +10,9 @@ export function NavSecondary() {
       icon: <RiHistoryLine className="size-5" />,
     },
     {
-      title: "Support",
-      url: "",
-      icon: <RiCustomerServiceLine className="size-5" />,
+      title: "About",
+      url: "/about",
+      icon: <RiInformationLine className="size-5" />,
     },
   ];
 

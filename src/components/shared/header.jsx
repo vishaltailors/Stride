@@ -1,4 +1,5 @@
 import ProfileImage from "@/assets/images/avatar.png";
+import DateRangeSelector from "@/components/shared/date-range-selector";
 import {
   PageDescription,
   PageHeader,
@@ -8,7 +9,6 @@ import {
   PageQuickActions,
   PageTitle,
 } from "@/components/shared/page-header";
-import DateRangeSelector from "@/components/shared/date-range-selector";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button, ButtonIcon } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
@@ -16,7 +16,6 @@ import {
   RiBringForward,
   RiCheckLine,
   RiNotification2Line,
-  RiSearch2Line,
 } from "@remixicon/react";
 import { useMediaQuery } from "@uidotdev/usehooks";
 
@@ -40,9 +39,6 @@ export default function Header({ isDraggable, setIsDraggable }) {
         )}
       </PageHeaderContent>
       <PageQuickActions>
-        <Button variant="neutral" mode="ghost">
-          <ButtonIcon as={RiSearch2Line} />
-        </Button>
         <Button variant="neutral" mode="ghost">
           <ButtonIcon as={RiNotification2Line} />
         </Button>

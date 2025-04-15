@@ -74,7 +74,10 @@ export function NavUser() {
           </DropdownMenuLabel>
           <DropdownMenuSeparator className="h-[1px] bg-stroke-soft-200" />
           <DropdownMenuGroup>
-            <DropdownMenuItem onSelect={() => navigate({ to: "/profile" })}>
+            <DropdownMenuItem
+              onSelect={() => navigate({ to: "/profile" })}
+              disabled
+            >
               <RiUserSettingsLine className="size-5" />
               Profile settings
             </DropdownMenuItem>
