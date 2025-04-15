@@ -105,7 +105,7 @@ function Workouts() {
             <PageTitle>
               <h1>Workouts</h1>
             </PageTitle>
-            <PageDescription>
+            <PageDescription className="hidden sm:block">
               A breakdown of all recorded workouts.
             </PageDescription>
           </PageHeaderInfo>

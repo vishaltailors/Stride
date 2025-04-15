@@ -72,7 +72,7 @@ function Activity() {
             <PageTitle>
               <h1>Activity</h1>
             </PageTitle>
-            <PageDescription>
+            <PageDescription className="hidden sm:block">
               Your activity metrics. Everything in one view!
             </PageDescription>
           </PageHeaderInfo>

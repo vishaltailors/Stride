@@ -25,7 +25,7 @@ function RouteComponent() {
             <PageTitle>
               <h1>Changelog</h1>
             </PageTitle>
-            <PageDescription>
+            <PageDescription className="hidden sm:block">
               Log of recent updates and feature changes.
             </PageDescription>
           </PageHeaderInfo>
