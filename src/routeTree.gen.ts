@@ -18,6 +18,7 @@ import { Route as LayoutImport } from './routes/_layout'
 // Create Virtual Routes
 
 const LayoutIndexLazyImport = createFileRoute('/_layout/')()
+const LayoutActivityLazyImport = createFileRoute('/_layout/activity')()
 
 // Create/Update Routes
 
@@ -32,6 +33,14 @@ const LayoutIndexLazyRoute = LayoutIndexLazyImport.update({
   getParentRoute: () => LayoutRoute,
 } as any).lazy(() => import('./routes/_layout/index.lazy').then((d) => d.Route))
 
+const LayoutActivityLazyRoute = LayoutActivityLazyImport.update({
+  id: '/activity',
+  path: '/activity',
+  getParentRoute: () => LayoutRoute,
+} as any).lazy(() =>
+  import('./routes/_layout/activity.lazy').then((d) => d.Route),
+)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -42,6 +51,13 @@ declare module '@tanstack/react-router' {
       fullPath: ''
       preLoaderRoute: typeof LayoutImport
       parentRoute: typeof rootRoute
+    }
+    '/_layout/activity': {
+      id: '/_layout/activity'
+      path: '/activity'
+      fullPath: '/activity'
+      preLoaderRoute: typeof LayoutActivityLazyImport
+      parentRoute: typeof LayoutImport
     }
     '/_layout/': {
       id: '/_layout/'
@@ -56,10 +72,12 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface LayoutRouteChildren {
+  LayoutActivityLazyRoute: typeof LayoutActivityLazyRoute
   LayoutIndexLazyRoute: typeof LayoutIndexLazyRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
+  LayoutActivityLazyRoute: LayoutActivityLazyRoute,
   LayoutIndexLazyRoute: LayoutIndexLazyRoute,
 }
 
@@ -68,25 +86,28 @@ const LayoutRouteWithChildren =
 
 export interface FileRoutesByFullPath {
   '': typeof LayoutRouteWithChildren
+  '/activity': typeof LayoutActivityLazyRoute
   '/': typeof LayoutIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
+  '/activity': typeof LayoutActivityLazyRoute
   '/': typeof LayoutIndexLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_layout': typeof LayoutRouteWithChildren
+  '/_layout/activity': typeof LayoutActivityLazyRoute
   '/_layout/': typeof LayoutIndexLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/'
+  fullPaths: '' | '/activity' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/_layout' | '/_layout/'
+  to: '/activity' | '/'
+  id: '__root__' | '/_layout' | '/_layout/activity' | '/_layout/'
   fileRoutesById: FileRoutesById
 }
 
@@ -114,8 +135,13 @@ export const routeTree = rootRoute
     "/_layout": {
       "filePath": "_layout.jsx",
       "children": [
+        "/_layout/activity",
         "/_layout/"
       ]
+    },
+    "/_layout/activity": {
+      "filePath": "_layout/activity.lazy.jsx",
+      "parent": "/_layout"
     },
     "/_layout/": {
       "filePath": "_layout/index.lazy.jsx",

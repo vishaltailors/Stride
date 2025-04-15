@@ -1,7 +1,7 @@
 "use client";
 
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { RiDashboardLine } from "@remixicon/react";
+import { RiDashboardLine, RiRunLine } from "@remixicon/react";
 import { Link } from "@tanstack/react-router";
 
 export function NavPrimary() {
@@ -10,6 +10,11 @@ export function NavPrimary() {
       title: "Dashboard",
       url: "/",
       icon: <RiDashboardLine className="size-5" />,
+    },
+    {
+      title: "Activity",
+      url: "/activity",
+      icon: <RiRunLine className="size-5" />,
     },
   ];
 
