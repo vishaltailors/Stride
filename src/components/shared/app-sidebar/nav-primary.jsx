@@ -1,5 +1,6 @@
 "use client";
 
+import FigureStrengthTraining from "@/assets/images/figure-strengthtraining.svg";
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { RiDashboardLine, RiRunLine } from "@remixicon/react";
 import { Link } from "@tanstack/react-router";
@@ -15,6 +16,16 @@ export function NavPrimary() {
       title: "Activity",
       url: "/activity",
       icon: <RiRunLine className="size-5" />,
+    },
+    {
+      title: "Workouts",
+      url: "/workouts",
+      icon: (
+        <img
+          src={FigureStrengthTraining}
+          className="mr-1 size-4 group-data-[collapsible=icon]:mx-auto"
+        />
+      ),
     },
   ];
 
