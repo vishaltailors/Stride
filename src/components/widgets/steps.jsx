@@ -115,7 +115,7 @@ export default function Steps() {
                 axisLine={false}
                 tickFormatter={(value) => `${value}`}
                 domain={[0, "dataMax + 200"]}
-                width={30}
+                width={40}
               />
               <ChartTooltip content={<ChartTooltipContent />} />
               <Bar

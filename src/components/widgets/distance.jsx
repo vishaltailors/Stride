@@ -120,7 +120,7 @@ export default function Distance() {
                 axisLine={false}
                 tickFormatter={(value) => `${value.toFixed(2)}`}
                 domain={[0, "dataMax + 0.1"]}
-                width={30}
+                width={40}
               />
               <ChartTooltip content={<ChartTooltipContent />} />
               <Bar
