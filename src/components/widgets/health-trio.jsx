@@ -42,12 +42,12 @@ export default function HealthTrio() {
   const sleepData = getSleepData(dateRange);
 
   return (
-    <Card className="grow overflow-y-auto">
+    <Card className="flex grow flex-col overflow-y-auto">
       <CardHeader>
         <CardTitle>Health Overview</CardTitle>
         <CardDescription>{formattedDate}</CardDescription>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="flex grow flex-col space-y-6">
         {/* Weight Section */}
         <div className="space-y-2 rounded-lg bg-bg-weak-50 p-4">
           <div className="flex items-center justify-between">
@@ -122,9 +122,9 @@ export default function HealthTrio() {
         </div>
 
         {/* Water and Sleep Section - Side by Side */}
-        <div className="flex gap-4">
+        <div className="flex grow flex-col gap-4 sm:flex-row">
           {/* Water Section */}
-          <div className="flex w-1/2 flex-col rounded-lg bg-bg-weak-50 p-4">
+          <div className="flex w-full flex-col rounded-lg bg-bg-weak-50 p-4 sm:w-1/2">
             <h3 className="mb-4 text-label-md font-medium">Water</h3>
 
             <div className="flex grow flex-col items-center">
@@ -168,7 +168,7 @@ export default function HealthTrio() {
               ) : (
                 <>
                   {/* Water Bar Chart for Other Date Ranges */}
-                  <div className="flex grow flex-col">
+                  <div className="flex w-full grow flex-col">
                     <ChartContainer
                       className="h-full w-full"
                       config={{
@@ -213,7 +213,7 @@ export default function HealthTrio() {
           </div>
 
           {/* Sleep Section */}
-          <div className="flex w-1/2 flex-col rounded-lg bg-bg-weak-50 p-4">
+          <div className="flex w-full flex-col rounded-lg bg-bg-weak-50 p-4 sm:w-1/2">
             <h3 className="mb-4 text-label-md font-medium">Sleep</h3>
 
             <div className="flex grow flex-col">

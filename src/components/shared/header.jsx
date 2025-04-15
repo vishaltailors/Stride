@@ -17,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import useDateRangeStore from "@/store/date-range-store";
 import {
   RiBringForward,
@@ -24,8 +25,11 @@ import {
   RiNotification2Line,
   RiSearch2Line,
 } from "@remixicon/react";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 export default function Header({ isDraggable, setIsDraggable }) {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   const dateRange = useDateRangeStore((state) => state.dateRange);
   const setDateRange = useDateRangeStore((state) => state.setDateRange);
   const options = [
@@ -50,15 +54,18 @@ export default function Header({ isDraggable, setIsDraggable }) {
   return (
     <PageHeader>
       <PageHeaderContent>
+        <SidebarTrigger />
         <PageIcon as={Avatar} className="p-0" color="blue">
           <AvatarImage src={ProfileImage} />
         </PageIcon>
-        <PageHeaderInfo>
-          <PageTitle>
-            <span>Vishal Tailor</span>
-          </PageTitle>
-          <PageDescription>Welcome back! 👋🏻</PageDescription>
-        </PageHeaderInfo>
+        {!isMobile && (
+          <PageHeaderInfo>
+            <PageTitle>
+              <span>Vishal Tailor</span>
+            </PageTitle>
+            <PageDescription>Welcome back! 👋🏻</PageDescription>
+          </PageHeaderInfo>
+        )}
       </PageHeaderContent>
       <PageQuickActions>
         <Button variant="neutral" mode="ghost">
@@ -83,14 +90,16 @@ export default function Header({ isDraggable, setIsDraggable }) {
             ))}
           </SelectContent>
         </Select>
-        <Button
-          variant="neutral"
-          mode="stroke"
-          onClick={() => setIsDraggable(!isDraggable)}
-        >
-          <ButtonIcon as={isDraggable ? RiCheckLine : RiBringForward} />
-          {isDraggable ? "Confirm Current Positions" : "Organize Widgets"}
-        </Button>
+        {!isMobile && (
+          <Button
+            variant="neutral"
+            mode="stroke"
+            onClick={() => setIsDraggable(!isDraggable)}
+          >
+            <ButtonIcon as={isDraggable ? RiCheckLine : RiBringForward} />
+            {isDraggable ? "Confirm Current Positions" : "Organize Widgets"}
+          </Button>
+        )}
       </PageQuickActions>
     </PageHeader>
   );

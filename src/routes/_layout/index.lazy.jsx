@@ -6,6 +6,7 @@ import HeartRate from "@/components/widgets/heart-rate";
 import Steps from "@/components/widgets/steps";
 import Workouts from "@/components/widgets/workouts";
 import { createLazyFileRoute } from "@tanstack/react-router";
+import { useMediaQuery } from "@uidotdev/usehooks";
 import { useEffect, useState } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
@@ -25,10 +26,10 @@ const defaultLayouts = {
   md: [
     { i: "activity", x: 0, y: 0, w: 1, h: 1 },
     { i: "steps", x: 1, y: 0, w: 1, h: 1 },
-    { i: "distance", x: 0, y: 1, w: 2, h: 1 },
-    { i: "workouts", x: 0, y: 2, w: 1, h: 1 },
-    { i: "heart-rate", x: 1, y: 2, w: 1, h: 1 },
-    { i: "health-trio", x: 2, y: 2, w: 1, h: 1 },
+    { i: "distance", x: 0, y: 1, w: 1, h: 1 },
+    { i: "workouts", x: 1, y: 1, w: 1, h: 1 },
+    { i: "heart-rate", x: 0, y: 2, w: 1, h: 1 },
+    { i: "health-trio", x: 1, y: 2, w: 1, h: 1 },
   ],
   sm: [
     { i: "activity", x: 0, y: 0, w: 1, h: 1 },
@@ -48,6 +49,8 @@ function Index() {
   const [isDraggable, setIsDraggable] = useState(false);
   const [layouts, setLayouts] = useState(defaultLayouts);
   const [currentLayout, setCurrentLayout] = useState(null);
+
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   // Load saved layouts from localStorage on component mount
   useEffect(() => {
@@ -85,12 +88,11 @@ function Index() {
 
   const handleLayoutChange = (layout, layouts) => {
     if (isDraggable) {
-      // Get current breakpoint
       const breakpoint =
         Object.keys(layouts).find((key) => layouts[key] === layout) ||
-        (window.innerWidth >= 1200
+        (window.innerWidth >= 1024
           ? "lg"
-          : window.innerWidth >= 996
+          : window.innerWidth >= 768
             ? "md"
             : "sm");
 
@@ -108,9 +110,9 @@ function Index() {
         <ResponsiveGridLayout
           className="layout"
           layouts={layouts}
-          breakpoints={{ lg: 1200, md: 996, sm: 768 }}
+          breakpoints={{ lg: 1024, md: 768, sm: 640 }}
           cols={{ lg: 3, md: 2, sm: 1 }}
-          rowHeight={470}
+          rowHeight={isMobile ? 575 : 470}
           width={1200}
           margin={[20, 20]}
           containerPadding={[0, 0]}

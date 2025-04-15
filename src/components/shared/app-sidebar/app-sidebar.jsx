@@ -12,9 +12,9 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
-export async function AppSidebar() {
+export function AppSidebar() {
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuButton
