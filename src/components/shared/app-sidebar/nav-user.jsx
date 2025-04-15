@@ -17,7 +17,6 @@ import {
 import {
   RiExpandUpDownLine,
   RiLogoutBoxRLine,
-  RiNotification3Line,
   RiUserSettingsLine,
 } from "@remixicon/react";
 import { useNavigate } from "@tanstack/react-router";
@@ -78,10 +77,6 @@ export function NavUser() {
             >
               <RiUserSettingsLine className="size-5" />
               Profile settings
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <RiNotification3Line className="size-5" />
-              Notifications
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator className="h-[1px] bg-stroke-soft-200" />
