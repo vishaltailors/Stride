@@ -8,7 +8,7 @@ export const Route = createFileRoute("/_layout")({
 });
 
 function Layout() {
-  const isLargeScreen = useMediaQuery("(min-width: 1024px)");
+  const isLargeScreen = useMediaQuery("(min-width: 1200px)");
 
   return (
     <SidebarProvider defaultOpen={isLargeScreen}>
