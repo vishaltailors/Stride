@@ -13,7 +13,7 @@ export const Route = createRootRoute({
 
     if (!isAuthenticated) {
       throw redirect({
-        to: "/signin"
+        to: "/signin",
       });
     }
   },
