@@ -13,10 +13,7 @@ export const Route = createRootRoute({
 
     if (!isAuthenticated) {
       throw redirect({
-        to: "/signin",
-        search: {
-          redirect: location.href,
-        },
+        to: "/signin"
       });
     }
   },

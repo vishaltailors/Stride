@@ -10,11 +10,7 @@ import {
   RiEyeOffLine,
   RiUserLine,
 } from "@remixicon/react";
-import {
-  createFileRoute,
-  useNavigate,
-  useSearch,
-} from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 
 export const Route = createFileRoute("/signin")({
@@ -23,7 +19,6 @@ export const Route = createFileRoute("/signin")({
 
 function SignIn() {
   const navigate = useNavigate();
-  const search = useSearch({ strict: false });
   const login = useAuthStore((state) => state.login);
   const [email, setEmail] = useState("vishaltailor@stride.com");
   const [password, setPassword] = useState("admin");
@@ -35,9 +30,8 @@ function SignIn() {
 
     const success = login(email, password);
     if (success) {
-      // Redirect to the original URL if available, otherwise go to home
-      const redirectTo = search?.redirect || "/";
-      navigate({ to: redirectTo });
+      // Always navigate to home page
+      navigate({ to: "/" });
     } else {
       setError(true);
     }
