@@ -13,6 +13,7 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SigninImport } from './routes/signin'
 import { Route as LayoutImport } from './routes/_layout'
 
 // Create Virtual Routes
@@ -24,6 +25,12 @@ const LayoutActivityLazyImport = createFileRoute('/_layout/activity')()
 const LayoutAboutLazyImport = createFileRoute('/_layout/about')()
 
 // Create/Update Routes
+
+const SigninRoute = SigninImport.update({
+  id: '/signin',
+  path: '/signin',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const LayoutRoute = LayoutImport.update({
   id: '/_layout',
@@ -75,6 +82,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof LayoutImport
+      parentRoute: typeof rootRoute
+    }
+    '/signin': {
+      id: '/signin'
+      path: '/signin'
+      fullPath: '/signin'
+      preLoaderRoute: typeof SigninImport
       parentRoute: typeof rootRoute
     }
     '/_layout/about': {
@@ -138,6 +152,7 @@ const LayoutRouteWithChildren =
 
 export interface FileRoutesByFullPath {
   '': typeof LayoutRouteWithChildren
+  '/signin': typeof SigninRoute
   '/about': typeof LayoutAboutLazyRoute
   '/activity': typeof LayoutActivityLazyRoute
   '/changelog': typeof LayoutChangelogLazyRoute
@@ -146,6 +161,7 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
+  '/signin': typeof SigninRoute
   '/about': typeof LayoutAboutLazyRoute
   '/activity': typeof LayoutActivityLazyRoute
   '/changelog': typeof LayoutChangelogLazyRoute
@@ -156,6 +172,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_layout': typeof LayoutRouteWithChildren
+  '/signin': typeof SigninRoute
   '/_layout/about': typeof LayoutAboutLazyRoute
   '/_layout/activity': typeof LayoutActivityLazyRoute
   '/_layout/changelog': typeof LayoutChangelogLazyRoute
@@ -165,12 +182,20 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/about' | '/activity' | '/changelog' | '/workouts' | '/'
+  fullPaths:
+    | ''
+    | '/signin'
+    | '/about'
+    | '/activity'
+    | '/changelog'
+    | '/workouts'
+    | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/about' | '/activity' | '/changelog' | '/workouts' | '/'
+  to: '/signin' | '/about' | '/activity' | '/changelog' | '/workouts' | '/'
   id:
     | '__root__'
     | '/_layout'
+    | '/signin'
     | '/_layout/about'
     | '/_layout/activity'
     | '/_layout/changelog'
@@ -181,10 +206,12 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   LayoutRoute: typeof LayoutRouteWithChildren
+  SigninRoute: typeof SigninRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   LayoutRoute: LayoutRouteWithChildren,
+  SigninRoute: SigninRoute,
 }
 
 export const routeTree = rootRoute
@@ -197,7 +224,8 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.jsx",
       "children": [
-        "/_layout"
+        "/_layout",
+        "/signin"
       ]
     },
     "/_layout": {
@@ -209,6 +237,9 @@ export const routeTree = rootRoute
         "/_layout/workouts",
         "/_layout/"
       ]
+    },
+    "/signin": {
+      "filePath": "signin.jsx"
     },
     "/_layout/about": {
       "filePath": "_layout/about.lazy.jsx",
