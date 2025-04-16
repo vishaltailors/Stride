@@ -3,13 +3,18 @@ import posterImage from "../assets/images/poster.webp";
 import { Input, InputRoot, InputWrapper } from "../components/ui/input";
 import { FancyButton } from "@/components/ui/fancy-button";
 import { Hint, HintIcon } from "@/components/ui/hint";
+import { useAuthStore } from "@/stores/auth-store";
 import {
   RiAlertLine,
   RiEyeLine,
   RiEyeOffLine,
   RiUserLine,
 } from "@remixicon/react";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  useNavigate,
+  useSearch,
+} from "@tanstack/react-router";
 import { useState } from "react";
 
 export const Route = createFileRoute("/signin")({
@@ -18,6 +23,8 @@ export const Route = createFileRoute("/signin")({
 
 function SignIn() {
   const navigate = useNavigate();
+  const search = useSearch({ strict: false });
+  const login = useAuthStore((state) => state.login);
   const [email, setEmail] = useState("vishaltailor@stride.com");
   const [password, setPassword] = useState("admin");
   const [showPassword, setShowPassword] = useState(false);
@@ -26,8 +33,11 @@ function SignIn() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (email === "vishaltailor@stride.com" && password === "admin") {
-      navigate({ to: "/" });
+    const success = login(email, password);
+    if (success) {
+      // Redirect to the original URL if available, otherwise go to home
+      const redirectTo = search?.redirect || "/";
+      navigate({ to: redirectTo });
     } else {
       setError(true);
     }

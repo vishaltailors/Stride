@@ -20,14 +20,16 @@ import {
   RiUserSettingsLine,
 } from "@remixicon/react";
 import { useNavigate } from "@tanstack/react-router";
+import { useAuthStore } from "@/stores/auth-store";
 
 export function NavUser() {
   const { isTablet } = useSidebar();
-
   const navigate = useNavigate();
+  const logout = useAuthStore(state => state.logout);
 
   const onSignout = async () => {
-    // TODO
+    logout();
+    navigate({ to: "/signin" });
   };
 
   return (

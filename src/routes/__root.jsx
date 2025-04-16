@@ -1,9 +1,25 @@
 import "../index.css";
-import { Outlet, createRootRoute } from "@tanstack/react-router";
+import { Outlet, createRootRoute, redirect } from "@tanstack/react-router";
 
 // import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 export const Route = createRootRoute({
+  beforeLoad: ({ location }) => {
+    if (location.pathname === "/signin") {
+      return;
+    }
+
+    const isAuthenticated = localStorage.getItem("stride-auth") === "true";
+
+    if (!isAuthenticated) {
+      throw redirect({
+        to: "/signin",
+        search: {
+          redirect: location.href,
+        },
+      });
+    }
+  },
   component: () => (
     <>
       <Outlet />
