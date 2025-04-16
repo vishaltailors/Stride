@@ -23,7 +23,7 @@ export const getWeightData = (dateRange) => {
       };
     case "this-year":
       return {
-        current: 67.8,
+        current: 60,
         unit: "kg",
         range: [55, 60, 65, 70, 75, 80, 85, 90],
       };
