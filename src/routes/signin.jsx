@@ -60,7 +60,7 @@ function SignIn() {
             </div>
             <h1 className="text-title-h6">Sign in to your account</h1>
             <p className="text-paragraph-sm text-text-sub-600">
-              Enter your details to login.
+              Just click on sign in!
             </p>
           </div>
 
